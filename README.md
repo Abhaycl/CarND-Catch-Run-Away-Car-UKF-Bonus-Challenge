@@ -50,15 +50,12 @@ INPUT: values provided by the simulator to the c++ program
 // current noiseless position state of the capture vehicle, called hunter
 
 ["hunter_x"]
-
 ["hunter_y"]
-
 ["hunter_heading"]
 
 // get noisy lidar and radar measurments from the run away car.
 
 ["lidar_measurement"]
-
 ["radar_measurement"]
 
 
@@ -67,15 +64,13 @@ OUTPUT: values provided by the c++ program to the simulator
 // best particle values used for calculating the error evaluation
 
 ["turn"] <= the desired angle of the capture car "hunter" no limit for the anlge
-
 ["dist"] <= the desired distance to move the capture car "hunter" can't move faster than run away car
 
 ---
 
-Unscented Kalman Filter Produces results as the x-position is shown as 'px', y-position as 'py', velocity in the x-direction is 'vx', while velocity in the y-direction is 'vy'. Residual error is calculated by mean squared error (MSE).
+Unscented Kalman Filter Produces results as the x-position is shown as 'px', y-position as 'py', velocity in the x-direction is 'vx', while velocity in the y-direction is 'vy'.
 
 ![Final score][image1]
-![Final score][image2]
 
 ---
 
