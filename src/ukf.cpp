@@ -131,9 +131,9 @@ void UKF::ProcessMeasurement(MeasurementPackage meas_package) {
             */
             x_(0) = meas_package.raw_measurements_(0);
             x_(1) = meas_package.raw_measurements_(1);
-            x_(2) = 0;
-            x_(3) = 0;
-            x_(4) = 0;
+            //x_(2) = 0;
+            //x_(3) = 0;
+            //x_(4) = 0;
         }
         
         //special case initialisation problems 
@@ -332,9 +332,8 @@ void UKF::UpdateLidar(MeasurementPackage meas_package) {
     
     //add measurement noise covariance matrix
     MatrixXd R = MatrixXd(n_z, n_z);
-    if (meas_package.sensor_type_ == MeasurementPackage::LASER){ // Lidar
-        R = R_lidar_;
-    }
+    R = R_lidar_;
+    
     S = S + R;
     
     //create matrix for cross correlation Tc
@@ -376,9 +375,7 @@ void UKF::UpdateLidar(MeasurementPackage meas_package) {
     P_ = P_ - K * S * K.transpose();
     
     //calculate NIS
-    if (meas_package.sensor_type_ == MeasurementPackage::LASER){ // Lidar
-	    NIS_laser_ = z.transpose() * S.inverse() * z;
-    }
+    NIS_laser_ = z.transpose() * S.inverse() * z;
 }
 
 /**
@@ -441,9 +438,8 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
     
     //add measurement noise covariance matrix
     MatrixXd R = MatrixXd(n_z, n_z);
-    if (meas_package.sensor_type_ == MeasurementPackage::RADAR){ // Radar
-        R = R_radar_;
-    }
+    R = R_radar_;
+    
     S = S + R;
     
     //create matrix for cross correlation Tc
@@ -485,7 +481,5 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
     P_ = P_ - K * S * K.transpose();
     
     //calculate NIS
-    if (meas_package.sensor_type_ == MeasurementPackage::RADAR){ // Radar
-        NIS_radar_ = z.transpose() * S.inverse() * z;
-    }
+    NIS_radar_ = z.transpose() * S.inverse() * z;
 }
